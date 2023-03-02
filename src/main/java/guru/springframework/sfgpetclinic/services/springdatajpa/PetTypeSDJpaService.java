@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -29,9 +28,7 @@ public class PetTypeSDJpaService implements PetTypeService {
 
     @Override
     public PetType findById(Long aLong) {
-        Optional<PetType> optionalPetType = Optional.ofNullable(petTypeRepository.findById(aLong));
-
-        return optionalPetType.orElse(null);
+        return petTypeRepository.findById(aLong).orElse(null);
     }
 
     @Override

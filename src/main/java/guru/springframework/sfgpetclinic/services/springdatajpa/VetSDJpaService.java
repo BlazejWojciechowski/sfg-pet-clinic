@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -30,9 +29,7 @@ public class VetSDJpaService implements VetService {
 
     @Override
     public Vet findById(Long aLong) {
-        Optional<Vet> optionalVet = Optional.ofNullable(vetRepository.findById(aLong));
-
-        return optionalVet.orElse(null);
+        return vetRepository.findById(aLong).orElse(null);
     }
 
     @Override

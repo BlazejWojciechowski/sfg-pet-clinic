@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -29,9 +28,7 @@ public class SpecialitySDJpaService implements SpecialityService {
 
     @Override
     public Speciality findById(Long aLong) {
-        Optional<Speciality> optionalSpeciality = Optional.ofNullable(specialityRepository.findById(aLong));
-
-        return optionalSpeciality.orElse(null);
+        return specialityRepository.findById(aLong).orElse(null);
     }
 
     @Override
