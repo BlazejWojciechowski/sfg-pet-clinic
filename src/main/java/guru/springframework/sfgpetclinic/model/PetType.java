@@ -3,15 +3,12 @@ package guru.springframework.sfgpetclinic.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "types")
 public class PetType extends BaseEntity {
@@ -19,7 +16,9 @@ public class PetType extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    public PetType(String name) {
+    @Builder
+    public PetType(Long id,String name) {
+        super(id);
         this.name = name;
     }
     @Override
