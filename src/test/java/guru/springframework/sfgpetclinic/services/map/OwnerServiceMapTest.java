@@ -8,13 +8,12 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnerServiceMapTest {
+class OwnerMapServiceTest {
 
     OwnerServiceMap ownerServiceMap;
 
-    final String lastName = "Smith"
-;
     final Long ownerId = 1L;
+    final String lastName = "Smith";
 
     @BeforeEach
     void setUp() {
@@ -38,17 +37,20 @@ class OwnerServiceMapTest {
     }
 
     @Test
-    void saveExistinId() {
+    void saveExistingId() {
         Long id = 2L;
+
         Owner owner2 = Owner.builder().id(id).build();
 
-        Owner saveOwner = ownerServiceMap.save(owner2);
+        Owner savedOwner = ownerServiceMap.save(owner2);
 
-        assertEquals(id, saveOwner.getId());
+        assertEquals(id, savedOwner.getId());
+
     }
 
     @Test
     void saveNoId() {
+
         Owner savedOwner = ownerServiceMap.save(Owner.builder().build());
 
         assertNotNull(savedOwner);
@@ -68,6 +70,7 @@ class OwnerServiceMapTest {
 
         assertEquals(0, ownerServiceMap.findAll().size());
     }
+
     @Test
     void findByLastName() {
         Owner smith = ownerServiceMap.findByLastName(lastName);
@@ -75,6 +78,7 @@ class OwnerServiceMapTest {
         assertNotNull(smith);
 
         assertEquals(ownerId, smith.getId());
+
     }
 
     @Test
