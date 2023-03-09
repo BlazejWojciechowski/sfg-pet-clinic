@@ -1,4 +1,5 @@
 package guru.springframework.sfgpetclinic.controllers;
+
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.model.Pet;
 import guru.springframework.sfgpetclinic.model.PetType;
@@ -47,7 +48,7 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-        owner = Owner.builder().id(1L).build();
+        owner = Owner.builder().id(1l).build();
 
         petTypes = new HashSet<>();
         petTypes.add(PetType.builder().id(1L).name("Dog").build());

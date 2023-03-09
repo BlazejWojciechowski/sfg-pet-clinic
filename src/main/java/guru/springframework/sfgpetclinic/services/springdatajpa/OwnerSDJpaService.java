@@ -20,7 +20,8 @@ public class OwnerSDJpaService implements OwnerService {
     private final PetRepository petRepository;
     private final PetTypeRepository petTypeRepository;
 
-    public OwnerSDJpaService(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
+    public OwnerSDJpaService(OwnerRepository ownerRepository, PetRepository petRepository,
+                             PetTypeRepository petTypeRepository) {
         this.ownerRepository = ownerRepository;
         this.petRepository = petRepository;
         this.petTypeRepository = petTypeRepository;
@@ -38,17 +39,14 @@ public class OwnerSDJpaService implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
-
         Set<Owner> owners = new HashSet<>();
-
         ownerRepository.findAll().forEach(owners::add);
-
         return owners;
     }
 
     @Override
     public Owner findById(Long aLong) {
-            return ownerRepository.findById(aLong).orElse(null);
+        return ownerRepository.findById(aLong).orElse(null);
     }
 
     @Override
@@ -65,5 +63,4 @@ public class OwnerSDJpaService implements OwnerService {
     public void deleteById(Long aLong) {
         ownerRepository.deleteById(aLong);
     }
-
 }

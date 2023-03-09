@@ -8,8 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import jakarta.validation.Valid;
 import java.util.List;
+
 @RequestMapping("/owners")
 @Controller
 public class OwnerController {
@@ -35,10 +37,12 @@ public class OwnerController {
 
     @GetMapping
     public String processFindForm(Owner owner, BindingResult result, Model model){
+        // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {
-            owner.setLastName("");
+            owner.setLastName(""); // empty string signifies broadest possible search
         }
 
+        // find owners by last name
         List<Owner> results = ownerService.findAllByLastNameLike("%"+ owner.getLastName() + "%");
 
         if (results.isEmpty()) {

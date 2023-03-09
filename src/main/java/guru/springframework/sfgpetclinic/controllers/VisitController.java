@@ -10,9 +10,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import java.beans.PropertyEditorSupport;
-import java.time.LocalDate;
 import java.util.Map;
+
 @Controller
 public class VisitController {
 
@@ -25,16 +24,10 @@ public class VisitController {
     }
 
     @InitBinder
-    public void dataBinder(WebDataBinder dataBinder) {
+    public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
-
-        dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException{
-                setValue(LocalDate.parse(text));
-            }
-        });
     }
+
     @ModelAttribute("visit")
     public Visit loadPetWithVisit(@PathVariable("petId") Long petId, Map<String, Object> model) {
         Pet pet = petService.findById(petId);
@@ -44,12 +37,10 @@ public class VisitController {
         visit.setPet(pet);
         return visit;
     }
-
     @GetMapping("/owners/*/pets/{petId}/visits/new")
     public String initNewVisitForm(@PathVariable("petId") Long petId, Map<String, Object> model) {
         return "pets/createOrUpdateVisitForm";
     }
-
     @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
     public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
         if (result.hasErrors()) {

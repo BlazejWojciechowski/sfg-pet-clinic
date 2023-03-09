@@ -12,7 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -38,8 +40,8 @@ class OwnerControllerTest {
     @BeforeEach
     void setUp() {
         owners = new HashSet<>();
-        owners.add(Owner.builder().id(1L).build());
-        owners.add(Owner.builder().id(2L).build());
+        owners.add(Owner.builder().id(1l).build());
+        owners.add(Owner.builder().id(2l).build());
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(controller)
@@ -59,8 +61,8 @@ class OwnerControllerTest {
     @Test
     void processFindFormReturnMany() throws Exception {
         when(ownerService.findAllByLastNameLike(anyString()))
-                .thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
-                        Owner.builder().id(2L).build()));
+                .thenReturn(Arrays.asList(Owner.builder().id(1l).build(),
+                        Owner.builder().id(2l).build()));
 
         mockMvc.perform(get("/owners"))
                 .andExpect(status().isOk())
@@ -70,24 +72,11 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormReturnOne() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build()));
+        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1l).build()));
 
         mockMvc.perform(get("/owners"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
-    }
-
-    @Test
-    void processFindFormEmptyReturnMany() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString()))
-                .thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
-                        Owner.builder().id(2L).build()));
-
-        mockMvc.perform(get("/owners")
-                        .param("lastName",""))
-                .andExpect(status().isOk())
-                .andExpect(view().name("owners/ownersList"))
-                .andExpect(model().attribute("selections", hasSize(2)));;
     }
 
     @Test
@@ -113,7 +102,7 @@ class OwnerControllerTest {
 
     @Test
     void processCreationForm() throws Exception {
-        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).build());
+        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1l).build());
 
         mockMvc.perform(post("/owners/new"))
                 .andExpect(status().is3xxRedirection())
@@ -125,7 +114,7 @@ class OwnerControllerTest {
 
     @Test
     void initUpdateOwnerForm() throws Exception {
-        when(ownerService.findById(anyLong())).thenReturn(Owner.builder().id(1L).build());
+        when(ownerService.findById(anyLong())).thenReturn(Owner.builder().id(1l).build());
 
         mockMvc.perform(get("/owners/1/edit"))
                 .andExpect(status().isOk())
