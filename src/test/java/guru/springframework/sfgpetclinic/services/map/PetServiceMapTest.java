@@ -1,15 +1,15 @@
 package guru.springframework.sfgpetclinic.services.map;
 
+import guru.springframework.sfgpetclinic.services.map.PetServiceMap;
 import guru.springframework.sfgpetclinic.model.Pet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PetMapServiceTest {
+class PetServiceMapTest {
 
     private PetServiceMap petServiceMap;
 
